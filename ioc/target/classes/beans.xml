@@ -4,4 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 <bean id="hello" class="com.soft1851.spring.ioc.entity.Hello"/>
+    <bean id="student" class="com.soft1851.spring.ioc.entity.Student">
+        <property name="id" value="1001"/>
+        <property name="name" value="Tom"/>
+        <property name="hobbies">
+            <list>
+                <value>打游戏</value>
+                <value>运动</value>
+                <value>编程</value>
+            </list>
+        </property>
+    </bean>
 </beans>
