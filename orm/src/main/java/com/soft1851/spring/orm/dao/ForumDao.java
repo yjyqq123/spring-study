@@ -1,8 +1,8 @@
-package com.soft1851.spring.ioc.dao;
+package com.soft1851.spring.orm.dao;
 
-        import com.soft1851.spring.ioc.entity.Forum;
+import com.soft1851.spring.orm.entity.Forum;
 
-        import java.util.List;
+import java.util.List;
 
 public interface ForumDao {
     /**
@@ -20,11 +20,18 @@ public interface ForumDao {
     int[] batchInsert(List<Forum> forums);
 
     /**
-     * 根据id删除Forum
+     * 根据id删除forum
      * @param forumId
      * @return
      */
     int delete(int forumId);
+
+    /**
+     * 根据id查询
+     * @param forumId
+     * @return
+     */
+    Forum get(int forumId);
 
     /**
      * 修改Forum
@@ -33,17 +40,10 @@ public interface ForumDao {
      */
     int update(Forum forum);
 
-    /**
-     * 根据id查询Forum
-     * @param forumId
-     * @return
-     */
-    Forum get(int forumId);
 
     /**
-     * 查询所有论坛信息
+     * 查看所有论坛信息
      * @return
      */
     List<Forum> selectAll();
 }
-

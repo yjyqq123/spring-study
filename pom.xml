@@ -12,6 +12,8 @@
         <module>ioc</module>
         <module>orm</module>
         <module>aop</module>
+        <module>web</module>
+        <module>test1</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

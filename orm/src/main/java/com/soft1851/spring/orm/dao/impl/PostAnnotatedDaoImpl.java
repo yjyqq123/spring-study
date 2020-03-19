@@ -1,25 +1,29 @@
-package com.soft1851.spring.ioc.dao.impl;
+package com.soft1851.spring.orm.dao.impl;
 
-import com.soft1851.spring.ioc.dao.PostDao;
-import com.soft1851.spring.ioc.entity.Post;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.soft1851.spring.orm.dao.PostAnnotatedDao;
+import com.soft1851.spring.orm.entity.Post;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-@Repository
-public class PostDaoImpl implements PostDao {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+@Component
+public class PostAnnotatedDaoImpl implements PostAnnotatedDao {
+    private  JdbcTemplate jdbcTemplate;
 
+    public PostAnnotatedDaoImpl(org.springframework.jdbc.core.JdbcTemplate jdbcTemplate) {
+        this.setJdbcTemplate(jdbcTemplate);
+    }
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
     @Override
     public int insert(Post post) {
-        String sql = "INSERT INTO t_post VALUES (NULL,?,?,?,?,?) ";
+        String sql = "INSERT INTO t_post VALUES (NULL,?,?,?,?,?)";
         Object[] args = {post.getForumId(), post.getTitle(),
                 post.getContent(), post.getThumbnail(), post.getPostTime()};
         return jdbcTemplate.update(sql,args);
@@ -28,7 +32,7 @@ public class PostDaoImpl implements PostDao {
     @Override
     public int[] batchInsert(List<Post> posts) {
         final List<Post> postList = posts;
-        String sql = "INSERT INTO t_post VALUES (NULL,?,?,?,?,?) ";
+        String sql = "INSERT INTO t_post VALUES (NULL,?,?,?,?,?)";
         return jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
@@ -47,7 +51,7 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public int delete(int postId) {
-        String sql = "DELETE FROM t_post WHERE post_id = ? ";
+        String sql = "DELETE FROM t_post WHERE post_id = ?";
         Object[] args = {postId};
         return jdbcTemplate.update(sql,args);
     }
@@ -81,7 +85,7 @@ public class PostDaoImpl implements PostDao {
         return jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
-                preparedStatement.setInt(1, posts[i]);
+                preparedStatement.setInt(1,posts[i]);
             }
 
             @Override
